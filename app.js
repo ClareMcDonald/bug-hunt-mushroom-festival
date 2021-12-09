@@ -41,7 +41,7 @@ function displayFriends() {
             }
             if (mushroomCount > 0 && friendInState.satisfaction < 3) {
                 friendInState.satisfaction++;
-                mushroomCount++;
+                mushroomCount--;
         
                 displayFriends();
                 displayMushrooms();    
@@ -56,7 +56,7 @@ function displayFriends() {
 
 function displayMushrooms() {
     mushroomsEl.textContent = '';
-    
+
     for (let i = 0; i < mushroomCount; i++) {
         const mushroomEl = renderMushroom();
 
