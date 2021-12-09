@@ -4,8 +4,8 @@ import { addFriend, findFriendByName } from './data-utils.js';
 
 const friendsEl = document.querySelector('.friends');
 const mushroomsEl = document.querySelectorAll('.mushrooms');
-const addMushroomButton = document.getElementById('add-mushroom');
-const addFriendButton = document.getElementById('add-friend');
+const addMushroomButton = document.getElementById('add-mushroom-button');
+const addFriendButton = document.getElementById('add-friend-button');
 // initialize state
 
 let mushroomCount = 3;
@@ -31,7 +31,7 @@ const friendData = [
 
 function displayFriends() {
     for (let friend of friendData) {
-        const friendEl = renderFriend(friendData);
+        const friendEl = renderFriend(friend);
 
         friendEl.addEventListener('click', () => {
             const friendInState = findFriendByName(friend.name, friendData);
@@ -40,12 +40,13 @@ function displayFriends() {
                 alert('no mushrooms left! go forage for some more');
             }
             if (mushroomCount > 0 && friendInState.satisfaction < 3) {
-                friendInState.happiness++;
+                friendInState.satisfaction++;
                 mushroomCount++;
         
-                displayFriends(friendData);
+                displayFriends();
                 displayMushrooms();    
             }
+            
         });
 
         friendsEl.append(friendEl);
@@ -53,7 +54,9 @@ function displayFriends() {
 }
 
 
-function displayMushrooms() { 
+function displayMushrooms() {
+    mushroomsEl.textContent = '';
+    
     for (let i = 0; i < mushroomCount; i++) {
         const mushroomEl = renderMushroom();
 
